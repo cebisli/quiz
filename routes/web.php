@@ -22,14 +22,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/panel', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
 
-Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
-    Route::get('deneme', function () {
-        return 'prfix testi';
-    });
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {    
 });
