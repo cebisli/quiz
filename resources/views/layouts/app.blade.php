@@ -50,7 +50,9 @@
         </div>
 
         @stack('modals')
-        {{ $js }} 
+        @isset($js)
+            {{ $js }}     
+        @endisset         
         @livewireScripts
     </body>
 </html>
