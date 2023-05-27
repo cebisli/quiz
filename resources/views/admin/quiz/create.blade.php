@@ -1,5 +1,6 @@
 <x-app-layout>
-    <x-slot name="header">Quiz Oluştur</x-slot>
+    <x-slot name="header">Quiz Oluştur</x-slot>    
+    
     <div class="card">
         <div class="card-body">
             
@@ -7,21 +8,21 @@
                 @csrf
                 <div class="form-group">
                     <label>Quiz Başlığı</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <input type="text" name="title" class="form-control" value=" {{ old('title') }}">
                 </div>
                 <div class="form-group">
                     <label>Quiz Başlığı</label>
-                    <textarea name="description" class="form-control" cols="30" rows="4"></textarea>
+                    <textarea name="description" class="form-control" cols="30" rows="4">{{ old('description') }}</textarea>
                 </div>
                 <br>
                 <div class="form-group">
-                    <input type="checkbox" class="form-control" id="bitisTarihiBelirt">
+                    <input type="checkbox" @if (old('finished_at')) checked @endif class="form-control" id="bitisTarihiBelirt">
                     <label for="bitisTarihiBelirt">Bitiş Tarihi Belirt</label>                    
                 </div>
                 <br>
-                <div id="finished_input" class="form-group" style="display: none;">
+                <div id="finished_input" class="form-group" @if (!old('finished_at')) style="display: none;" @endif>
                     <label>Bitiş Tarihi</label>
-                    <input type="datetime-local" name="finished_at" class="form-control">
+                    <input type="datetime-local" name="finished_at" class="form-control" value="{{ old('finished_at') }}">
                 </div>
                 <br>
                 <div class="form-group" style="text-align: right;">

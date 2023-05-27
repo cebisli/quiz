@@ -37,7 +37,7 @@
                     @endforeach                                
                 </tbody>
               </table>       
-              {{ $quizes->links('vendor.pagination.default') }}       
+              {{ $quizes->links() }}       
         </div>
     </div>
 
