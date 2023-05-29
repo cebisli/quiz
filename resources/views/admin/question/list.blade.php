@@ -42,8 +42,8 @@
                             <td> {{ $question->answer4 }} </td>
                             <td> {{ substr($question->correct_answer,-1) }} . cevap </td>
                             <td> 
-                                <a href=" {{route('quizzes.edit', $quiz->id)}} " class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                                <a href=" {{route('quizzes.destroy', $quiz->id)}} " class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>    
+                                <a href=" {{ route('questions.edit', [$quiz->id, $question->id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                {{-- <a href=" {{ route('questions.destroy', $question->id) }} " class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>     --}}
                             </td>
                         </tr>    
                     @endforeach
