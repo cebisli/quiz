@@ -17,10 +17,12 @@
         
          <!-- Styles -->
          <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+         <link rel="stylesheet" href="{{ asset('css/genel.css') }}">
           @livewireStyles
       
           <!-- Scripts -->
           <script src="{{ asset('js/app.js') }}"></script>
+          <script src="{{ asset('js/common.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
