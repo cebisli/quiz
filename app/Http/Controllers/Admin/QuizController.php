@@ -17,6 +17,11 @@ class QuizController extends Controller
      */
     public function index()
     {
+        if (request()->get('title'))
+        {
+            
+        }
+
         $quizes = Quiz::withCount('questions')->paginate(5);
         return view('admin.quiz.list', compact('quizes'));
     }

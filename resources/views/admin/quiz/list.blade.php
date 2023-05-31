@@ -2,11 +2,28 @@
     <x-slot name="header">Quizler</x-slot>
     
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">
+        <div class="card-body">    
+            
+            <h5 class="card-title float-end">
                 <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-plus"></i> Quiz Oluştur</a>
             </h5>
+            
+            <form method="GET" action="">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="tet" name="title" placeholder="Quiz Adı" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="status" class="form-control" onchange="this.form.submit()">
+                            <option value="">Seçiniz</option>
+                            <option value="publish">Aktif</option>
+                            <option value="passive">Pasif</option>
+                            <option value="draft">Taslak</option>
+                        </select>
+                    </div>
+                </div>        
+            </form>            
 
             <table class="table table-bordered">
                 <colgroup>
