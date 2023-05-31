@@ -12,16 +12,21 @@
             <form method="GET" action="">
                 <div class="row">
                     <div class="col-md-3">
-                        <input type="tet" name="title" placeholder="Quiz Adı" class="form-control">
+                        <input type="tet" name="title" value="{{request()->get('title')}}" placeholder="Quiz Adı" class="form-control">
                     </div>
                     <div class="col-md-3">
                         <select name="status" class="form-control" onchange="this.form.submit()">
                             <option value="">Seçiniz</option>
-                            <option value="publish">Aktif</option>
-                            <option value="passive">Pasif</option>
-                            <option value="draft">Taslak</option>
+                            <option value="publish" @if (request()->get('status') == 'publish') selected @endif >Aktif</option>
+                            <option value="passive" @if (request()->get('status') == 'passive') selected @endif >Pasif</option>
+                            <option value="draft" @if (request()->get('status') == 'draft') selected @endif >Taslak</option>
                         </select>
                     </div>
+                    @if (request()->get('status') || request()->get('title'))
+                        <div class="col-md-2">
+                            <a href="{{route('quizzes.index')}}" class="btn btn-secondary">Sıfırla</a>
+                        </div>    
+                    @endif                    
                 </div>        
             </form>            
 
@@ -75,7 +80,7 @@
                     @endforeach                                
                 </tbody>
               </table>       
-              {{ $quizes->links() }}       
+              {{ $quizes->withQueryString()->links() }}       
         </div>
     </div>
     

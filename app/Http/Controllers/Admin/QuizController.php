@@ -17,12 +17,13 @@ class QuizController extends Controller
      */
     public function index()
     {
+        $quizes = Quiz::withCount('questions');
         if (request()->get('title'))
-        {
-            
-        }
+            $quizes = $quizes->where('title','LIKE','%'.request()->get("title").'%');
+        if (request()->get('status'))
+            $quizes = $quizes->where('status',request()->get("status"));
 
-        $quizes = Quiz::withCount('questions')->paginate(5);
+        $quizes = $quizes->paginate(5);
         return view('admin.quiz.list', compact('quizes'));
     }
 
