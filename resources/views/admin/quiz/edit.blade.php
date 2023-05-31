@@ -17,6 +17,20 @@
                 </div>
                 <br>
                 <div class="form-group">
+                    <label>Quiz Durumu</label>                    
+                    <select name="status" id="" class="form-control">
+                        <option 
+                            @if ($quiz->status == 'publish') selected @endif 
+                            @if ($quiz->questions_count < 4) disabled @endif
+                            value="publish">
+                            Aktif
+                        </option>
+                        <option @if ($quiz->status == 'passive') selected @endif value="passive">Pasif</option>
+                        <option @if ($quiz->status == 'draft') selected @endif value="draft">Taslak</option>
+                    </select>                    
+                </div>
+                <br>
+                <div class="form-group">
                     <input type="checkbox" @if ($quiz->finished_at) checked @endif class="form-control" id="bitisTarihiBelirt">
                     <label for="bitisTarihiBelirt">Bitiş Tarihi Belirt</label>                    
                 </div>

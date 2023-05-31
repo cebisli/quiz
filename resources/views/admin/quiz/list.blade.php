@@ -10,25 +10,44 @@
 
             <table class="table table-bordered">
                 <colgroup>
-                    <col width='55%'>
-                    <col width='15%'>
-                    <col width='15%'>
-                    <col width='15%'>
+                    <col width='50%'>
+                    <col width='10%'>
+                    <col width='10%'>
+                    <col width='10%'>
+                    <col width='20%'>
                 </colgroup>
                 <thead>
                   <tr>
-                    <th scope="col">Quiz</th>
-                    <th scope="col">Durum</th>
-                    <th scope="col">Bitiş Tarihi</th>
-                    <th scope="col">İşlemler</th>
+                    <td scope="col">Quiz</td>
+                    <td scope="col">Soru Sayısı</td>
+                    <td scope="col">Durum</td>
+                    <td scope="col">Bitiş Tarihi</td>
+                    <td scope="col">İşlemler</td>
                   </tr>
                 </thead>
                 <tbody>
                     @foreach ($quizes as $quiz)
                         <tr>
                             <td> {{ $quiz->title }} </td>
-                            <td> {{ $quiz->status }} </td>
-                            <td> {{ $quiz->finished_at }} </td>
+                            <td> {{ $quiz->questions_count }} </td>
+                            <td> 
+                                @switch($quiz->status)
+                                    @case('publish')
+                                        <span class="badge bg-success">Aktif</span>
+                                        @break
+                                    @case('passive')
+                                        <span class="badge bg-danger">Pasif</span>   
+                                        @break
+                                    @case('draft')
+                                        <span class="badge bg-warning">Taslak</span>   
+                                        @break
+                                @endswitch    
+                            </td>
+                            <td> 
+                                <span title="{{$quiz->finished_at}}">
+                                    {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-' }} 
+                                </span>
+                            </td>
                             <td> 
                                 <a href=" {{route('questions.index', $quiz->id)}} " class="btn btn-sm btn-warning">
                                     <i class="fa fa-question"></i></a>
@@ -42,6 +61,5 @@
               {{ $quizes->links() }}       
         </div>
     </div>
-
     
 </x-app-layout>

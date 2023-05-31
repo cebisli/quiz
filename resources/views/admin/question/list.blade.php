@@ -3,9 +3,14 @@
     
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">
+            
+            <h5 class="card-title float-end">
                 <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-plus"></i> Soru Oluştur</a>
+            </h5>
+            <h5 class="card-title">
+                <a href="{{ route('quizzes.index') }}" class="btn btn-sm btn-secondary">
+                    <i class="fa fa-arrow-left"></i> Quizlere Dön</a>
             </h5>
 
             <table class="table table-bordered table-sm">
@@ -35,7 +40,11 @@
                     @foreach ($quiz->questions as $question)
                         <tr>
                             <td> {{ $question->question }} </td>
-                            <td> {{ $question->image }} </td>
+                            <td> 
+                                @if ($question->image)
+                                    <a href="{{asset($question->image)}}" target="_blank" class="btn btn-sm btn-light">Görüntüle</a>
+                                @endif 
+                            </td>
                             <td> {{ $question->answer1 }} </td>
                             <td> {{ $question->answer2 }} </td>
                             <td> {{ $question->answer3 }} </td>
@@ -43,7 +52,7 @@
                             <td> {{ substr($question->correct_answer,-1) }} . cevap </td>
                             <td> 
                                 <a href=" {{ route('questions.edit', [$quiz->id, $question->id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                                {{-- <a href=" {{ route('questions.destroy', $question->id) }} " class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>     --}}
+                                <a href=" {{ route('questions.destroy', [$quiz->id, $question->id]) }} " class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>    
                             </td>
                         </tr>    
                     @endforeach
