@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Answers extends Migration
+class Result extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class Answers extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('question_id');            
-            $table->enum('answer', ['answer1', 'answer2', 'answer3', 'answer4']);                        
+            $table->unsignedBigInteger('quiz_id');
+            $table->integer('point');           
+            $table->integer('currect');
+            $table->integer('wrong');
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
         });
     }
 
@@ -31,6 +34,6 @@ class Answers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('results');
     }
 }
