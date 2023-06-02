@@ -5,7 +5,7 @@
         <div class="list-group">
             @foreach ($quizzes as $quiz)
                 
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+            <a href="{{route('quiz.detail', $quiz->slug)}}" class="list-group-item list-group-item-action" aria-current="true">
               <div class="d-flex w-100 justify-content-between">
                 <span class="mb-1" style="font-size: 18px;"> {{$quiz->title}} </span>
                 <small> {{$quiz->finished_at ? $quiz->finished_at->diffForHumans().' bitiyor..' : ''}} </small>

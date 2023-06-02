@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
+use Illuminate\Support\Str;
 
 class QuizController extends Controller
 {
@@ -82,8 +83,8 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, 'Quiz Bulunamadı');
-
-        Quiz::where("id" ,$id)->update($request->except(['_method','_token']));
+        $quiz->slug = '';
+        Quiz::find($id)->update($request->except(['_method','_token']));
         return redirect()->route('quizzes.index')->withSuccess('Quiz başarıyla güncellendi...');
     }
 
