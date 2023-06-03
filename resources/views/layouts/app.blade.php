@@ -59,6 +59,13 @@
                         </div>
                     @endisset
 
+                    @if(session('danger'))
+                        <div class="alert alert-danger">
+                            <i class="fa fa-check"></i>
+                            {{session('danger')}}
+                        </div>
+                    @endisset
+
                     {{ $slot }} 
                 </div>
             </div>
