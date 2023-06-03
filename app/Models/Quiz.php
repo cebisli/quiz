@@ -17,12 +17,26 @@ class Quiz extends Model
     protected $fillable = ['title', 'description', 'status', 'finished_at', 'slug'];
 
     protected $dates = ['finished_at'];
-    protected $appends = ['details'];
+    protected $appends = ['details', 'my_rank'];
 
     public function my_result(){
         return $this->hasOne('App\Models\Result')->where('user_id', auth()->user()->id);
     }
     
+    public function getMyRankAttribute()
+    {
+        if ($this->results()->count() > 0)
+        {
+            $siralama = 0;
+            foreach($this->results()->orderByDesc('point')->get() as $result)
+            {
+                $siralama++;
+                if ($result->user_id == auth()->user()->id)
+                    return $siralama;
+            }   
+        }
+        return 0;    
+    }
     public function getDetailsAttribute()
     {
         if ($this->results()->count() > 0)
@@ -35,6 +49,10 @@ class Quiz extends Model
 
     public function results(){
         return $this->hasMany('App\Models\Result');
+    }
+
+    public function topTen(){
+        return $this->results()->orderByDesc('point')->take(10);
     }
 
     public function getFinishedAtAttribute($date){

@@ -16,4 +16,9 @@ class Result extends Model
         'currect', 
         'wrong' 
     ];
+    
+    public function user(){
+        return $this->belongsTo('App\Models\USER');
+    }
+
 }

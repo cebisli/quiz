@@ -8,6 +8,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <ol class="list-group list-group-numbered" style="font-size: 13px;">
+                            @if ($quiz->my_rank > 0)
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Sıralamanız</div>                                
+                                    </div>
+                                    <span class="badge bg-info rounded-pill"> {{$quiz->my_rank}}. Sıra </span>
+                                </li>
+                            @endif
                             @if ($quiz->my_result)
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
@@ -53,6 +61,23 @@
                                 </li>
                             @endif                            
                         </ol>
+                        @if (count($quiz->topTen) > 0)
+                            <div class="card mt-2" style="font-size:15px; " >
+                                <div class="card-body">
+                                    <h2 class="card-title"><b>İlk 10 Listesi</b></h2>
+                                    <ul class="list-group">
+                                        @foreach ($quiz->topTen as $result)
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">                                             
+                                                <b>#{{$loop->iteration}}- </b>                                                 
+                                                <img src="{{$result->user->profile_photo_url}}" class="w-8 h-8 rounded-full">
+                                               <span @if ($result->user_id == auth()->user()->id) class="text-danger" @endif>{{$result->user->name}}</span>                                            
+                                                <span class="badge bg-info rounded-pill">{{$result->point}} Puan</span> 
+                                            </li>
+                                        @endforeach                                    
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                     </div>                    
                     <div class="col-md-8">
                         {{$quiz->description}}  
