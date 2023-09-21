@@ -15,7 +15,7 @@ class MainController extends Controller
     }
 
     public function quiz($slug){
-        return $quiz = Quiz::whereSlug($slug)->with('questions.my_answer')->first() ?? abort(404, 'Quiz Bulunamadı'); 
+        $quiz = Quiz::whereSlug($slug)->with('questions.my_answer')->first() ?? abort(404, 'Quiz Bulunamadı'); 
 
         if ($quiz->my_result) {
             return view('quiz_result', compact('quiz'));    
