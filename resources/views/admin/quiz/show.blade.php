@@ -5,32 +5,15 @@
         <div class="card-body">
             <p class="card-text">
 
+                <h5 class="card-title">
+                    <a href="{{ route('quizzes.index') }}" class="btn btn-sm btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Quizlere Dön</a>
+                </h5>
+
                 <div class="row">
                     <div class="col-md-4">
                         <ol class="list-group list-group-numbered" style="font-size: 13px;">
-                            @if ($quiz->my_rank > 0)
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">Sıralamanız</div>                                
-                                    </div>
-                                    <span class="badge bg-info rounded-pill"> {{$quiz->my_rank}}. Sıra </span>
-                                </li>
-                            @endif
-                            @if ($quiz->my_result)
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">Puan</div>                                
-                                    </div>
-                                    <span class="badge bg-success rounded-pill"> {{$quiz->my_result->point}} Puan </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">Doğru / Yanlış Sayısı</div>                                
-                                    </div>
-                                    <span class="badge bg-success rounded-pill"> {{$quiz->my_result->currect}} Doğru</span> / 
-                                    <span class="badge bg-danger rounded-pill"> {{$quiz->my_result->wrong}} Yanlış </span>
-                                </li>
-                            @endif                            
+                                                    
 
                             @if ($quiz->finished_at)
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -80,14 +63,26 @@
                         @endif
                     </div>                    
                     <div class="col-md-8">
-                        {{$quiz->description}}  
-                        <br>
-
-                        @if ($quiz->my_result)
-                            <a href="{{route('quiz.join', $quiz->slug)}}" class="btn btn-info btn-block btn-sm" style="width: 100%">Quizi Görüntüle</a>
-                        @elseif ($quiz->finished_at > now())
-                            <a href="{{route('quiz.join', $quiz->slug)}}" class="btn btn-primary btn-block btn-sm" style="width: 100%">Quize Katıl</a>
-                        @endif
+                        <table class="table table-bordered" style="font-size: 14px;">
+                            <thead>
+                              <tr>
+                                <th scope="col">Ad Soyad</th>
+                                <th style="text-align:center;">Puan</th>
+                                <th style="text-align:center;">Doğru</th>
+                                <th style="text-align:center;">Yanlış</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($quiz->results as $result)
+                                    <tr>
+                                        <td> {{$result->user->name}} </td>
+                                        <td style="text-align:center;"> {{$result->point}} </td>                                        
+                                        <td style="text-align:center;"> {{$result->currect}} </td>                                        
+                                        <td style="text-align:center;"> {{$result->wrong}} </td>                                        
+                                    </tr>
+                                @endforeach                              
+                            </tbody>
+                        </table>
                     </div>                    
                 </div>                
             </p>          
